@@ -7,9 +7,8 @@ services:
       - traefik
     env_file:
       - ./.env.mysql
-    volumes:
-      - ./../shared/latest-schema.sql:/docker-entrypoint-initdb.d/latest-schema.sql
-      - $HOME/symmetricds/store/mysql/datadir:/var/lib/mysql
+    #volumes:
+    #  - config/latest-schema.sql:/docker-entrypoint-initdb.d/latest-schema.sql
 
 networks:
   traefik:
