@@ -14,6 +14,8 @@ services:
       - ./.env.mysql
     #volumes:
     #  - config/latest-schema.sql:/docker-entrypoint-initdb.d/latest-schema.sql
+    ports:
+      - 13306:3306
 
 networks:
   traefik:
