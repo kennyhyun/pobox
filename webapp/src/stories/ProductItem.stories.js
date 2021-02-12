@@ -10,7 +10,7 @@ export default {
   },
 };
 
-const Template = (args) => <ProductItem {...args} />;
+const Template = args => <ProductItem {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
