@@ -1,4 +1,4 @@
-import initStoryshots from '@storybook/addon-storyshots';
+import initStoryshots, { multiSnapshotWithOptions } from '@storybook/addon-storyshots';
 
 jest.mock('react-dom', () => {
   const original = jest.requireActual('react-dom');
@@ -8,4 +8,4 @@ jest.mock('react-dom', () => {
   };
 });
 
-initStoryshots();
+initStoryshots({ test: multiSnapshotWithOptions() });
