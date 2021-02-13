@@ -31,25 +31,9 @@ module.exports = {
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     'no-console': 'warn',
     'max-len': ['warn', { code: 120 }],
-    /*
-    'comma-dangle': ["error", {
-      "functions": "never"
-    }],
-    */
     semi: [2, 'always'],
-    // 'arrow-parens': ['error', 'always'],
     'no-new-object': 'error',
     'no-array-constructor': 'error',
-    /*
-    'sort-imports': [
-      2,
-      {
-        ignoreCase: false,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-      },
-    ],
-    */
     'space-before-function-paren': [
       'error',
       {
