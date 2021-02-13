@@ -1,7 +1,7 @@
 {
-  "name": "filemanager.webapp",
+  "name": "offerbox.webapp",
   "version": "0.1.0",
-  "description": "Webapp for Filemanager",
+  "description": "Webapp for Offerbox",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.6",

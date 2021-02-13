@@ -26,8 +26,6 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/prop-types': 'off', // Disable prop-types as we use TypeScript for type checking
     '@typescript-eslint/no-unused-vars': 'warn',
-    // '@typescript-eslint/no-var-requires': 0,
-    // '@typescript-eslint/ban-ts-comment': 0,
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     'no-console': 'warn',
     'max-len': ['warn', { code: 120 }],
