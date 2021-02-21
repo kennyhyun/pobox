@@ -33,7 +33,7 @@ class FetchSource {
     return htmlString;
   };
 
-  updateCookie(cookies) {
+  updateCookie(cookies = []) {
     const {
       defaults: { headers },
     } = this.axiosInstance;

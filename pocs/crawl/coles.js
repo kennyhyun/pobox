@@ -73,11 +73,7 @@ const parseColesProductData = async tree => {
   return Object.values(data).find(it => it.type === 'COLRSCatalogEntryList');
 };
 
-const parseColesData = async tree => {
-  // console.log(parsed);
-  // print(parsed, 'html body div[data-colrs-category-counts]');
-  // print(parsed, 'html body div[data-colrs-all-categories]');
-  // const found = find(parsed.children, 'html body div[data-colrs-all-categories]'.split(' '));
+const parseColesCategoryData = async tree => {
   const found = find(tree.children, 'html body div[data-colrs-transformer]'.split(' '));
   const data = found.reduce((attr, node) => {
     const dataSegment = Object.keys(node.attribs).reduce((attribs, key) => {
@@ -96,10 +92,8 @@ const parseColesData = async tree => {
   return data;
 };
 
-const parseMinificationCodes = async tree => {
+const parseColesMinificationCodes = async tree => {
   const found = find(tree.children, 'html body script[type]'.split(' '));
-  // console.log(JSON.stringify(found.map(it => it.attribs), null, 2))
-  // found.map((node, idx) => console.log('-----------', idx, '\n', getText(node.children)));
   const scripts = found
     .filter(node => {
       const keys = Object.keys(node.attribs);
@@ -166,21 +160,17 @@ source
   .fetchColesHtml({ objectParams: categoryObjectParams, path: constants.endpoints.browse })
   .then(async htmlString => {
     const parsed = parse5.parse(htmlString, { treeAdapter: htmlparser2Adapter });
-    const minificationCodes = await parseMinificationCodes(parsed);
-    const data = await parseColesData(parsed);
-    // console.log(data);
+    const minificationCodes = await parseColesMinificationCodes(parsed);
+    const data = await parseColesCategoryData(parsed);
     console.log('--------- categories ------------');
-    // console.log(JSON.parse(data['all-categories']));
     const categories = findCategories(JSON.parse(data['all-categories']).catalogGroupView);
-    // // .reduce((ext, cat) => [...ext, findCategories(cat)], []);
-    // console.log(JSON.stringify(categories, null, 2));
     console.log(categories);
     await categories.reduce(async (p, category, idx) => {
       await p;
       const { path } = category;
       const products = await fetchProducts({ directory: path, minificationCodes });
-
       // console.log(products);
+      console.log('--------- category', path, '------------');
       console.log(JSON.stringify(products, null, 2));
       if (idx >= 3) throw new Error('break');
     }, null);
