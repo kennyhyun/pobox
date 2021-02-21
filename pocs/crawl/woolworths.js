@@ -10,7 +10,8 @@ const endpoints = {
 
 const constants = {
   pageSize: 24,
-  subdir: 'raw-json/',
+  maxPageNumber: 100,
+  subdir: 'raw-json/woolworths/',
   jsonExtension: '.json',
   categoryFilename: 'woolworths.categories',
   productFilename: 'woolworths.products',
@@ -77,6 +78,7 @@ const fetchProductsInCategory = async ({ key, id, desc, pageNumber = 1 }) => {
     )
   );
   if (!totalCount || pageNumber > totalCount / pageSize) return;
+  if (pageNumber >= constants.maxPageNumber) return;
   fetchProductsInCategory({ key, id, desc, pageNumber: pageNumber + 1 });
 };
 

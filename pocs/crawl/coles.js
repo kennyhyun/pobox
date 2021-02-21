@@ -16,6 +16,7 @@ if (!akBmcrf) {
 const constants = {
   maxPage: 50,
   categoryLevel: 2,
+  subdir: 'raw-json/coles/',
   cachePrefix: 'coles.browse',
   userAgent:
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
@@ -32,7 +33,7 @@ const source = new FetchSource({
   userAgent: constants.userAgent,
   baseUrl: constants.baseUrl,
   cookieStringArray: [`ak_bmcrf=${akBmcrf}`],
-  cache: new FileCache({ subdir: 'raw-json/coles/', jsonExtension: '.json' }),
+  cache: new FileCache({ subdir: constants.subdir, jsonExtension: '.json' }),
 });
 
 const categoyMapper = ({ uniqueID, name, seo_token, level }, path) => ({
