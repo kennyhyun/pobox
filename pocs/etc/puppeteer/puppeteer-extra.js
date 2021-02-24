@@ -9,7 +9,7 @@ const getTimeDiff = stamps => {
 
 Puppeteer.launch({
   executablePath: 'node_modules/puppeteer/.local-chromium/linux-848005/chrome-linux/chrome',
-  // headless: false,
+  headless: false,
   defaultViewport: null,
   args: [
     '--disable-gpu',
@@ -31,36 +31,19 @@ Puppeteer.launch({
 })
   .then(async browser => {
     console.log(`Launched..`);
-    // await new Promise(res => setTimeout(res, 1000));
     console.log('--- browser', browser._process.spawnargs);
-    // await new Promise(res => setTimeout(res, 1000));
-    console.log(`Wait 1`);
-    // await new Promise(res => setTimeout(res, 1000));
-    console.log(`Wait 2`);
-    // await new Promise(res => setTimeout(res, 1000));
-    console.log(`Wait 3`);
     try {
       // await new Promise(res => setTimeout(res, 1000));
       const timestamps = [new Date().getTime()];
       const [page] = await browser.pages();
       timestamps.push(new Date().getTime());
       console.log('--- page ready', getTimeDiff(timestamps));
-
-      // await new Promise(res => setTimeout(res, 5000));
-      console.log(`Wait 1`);
-      // await new Promise(res => setTimeout(res, 5000));
-      console.log(`Wait 2`);
-      // await new Promise(res => setTimeout(res, 5000));
-      console.log(`Wait 3`);
-
-      console.log('--- page ready', await page.title());
-
       browser.on('disconnected', () => {
         console.log('disconnected!!!!!!');
       });
       page.on('error', e => console.log('page error', e));
-      timestamps.push(new Date().getTime());
 
+      timestamps.push(new Date().getTime());
       console.log(`------------------ Testing the stealth plugin..`, getTimeDiff(timestamps));
       const resp = await page
         .goto('https://shop.coles.com.au/a/national/everything/browse', {
@@ -69,31 +52,11 @@ Puppeteer.launch({
           waitUntil: 'networkidle2',
         })
         .catch(e => console.warn);
-        
       timestamps.push(new Date().getTime());
       console.log('--- page loaded 1', page._title, getTimeDiff(timestamps));
-
-      // await new Promise(res => setTimeout(res, 5000));
-      console.log(`Wait 1`);
-      await new Promise(res => setTimeout(res, 5000));
-      console.log(`Wait 2`);
-      // await new Promise(res => setTimeout(res, 5000));
-      console.log(`Wait 3`);
-
-      timestamps.push(new Date().getTime());
-
       await page.screenshot({ path: '_puppeteer-extra.png' });
       timestamps.push(new Date().getTime());
       console.log('--- screenshot taken', getTimeDiff(timestamps));
-
-      // await new Promise(res => setTimeout(res, 1000));
-      console.log(`Wait 1`);
-      // await new Promise(res => setTimeout(res, 1000));
-      console.log(`Wait 2`);
-      // await new Promise(res => setTimeout(res, 1000));
-      console.log(`Wait 3`);
-
-      console.log('--- closing browser', getTimeDiff(timestamps));
       await browser.close();
     } catch (error) {
       console.error('--------Error', error);
