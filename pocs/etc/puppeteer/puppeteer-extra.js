@@ -4,7 +4,7 @@ Puppeteer.use(StealthPlugin());
 
 const getTimeDiff = stamps => {
   const [former, latter] = stamps.slice(-2);
-  return ((latter - former) / 1000).toFixed(3);
+  return ((latter - former) / 1000).toFixed(2);
 };
 
 Puppeteer.launch({
@@ -53,7 +53,16 @@ Puppeteer.launch({
         })
         .catch(e => console.warn);
       timestamps.push(new Date().getTime());
-      console.log('--- page loaded 1', page._title, getTimeDiff(timestamps));
+      console.log('--- page loaded', page._title, getTimeDiff(timestamps));
+      const client = await page.target().createCDPSession();
+      const { cookies: allCookies } = await client.send('Network.getAllCookies');
+      timestamps.push(new Date().getTime());
+      const cookies = allCookies
+        .filter(i => i.httpOnly && i.domain === 'shop.coles.com.au')
+        .map(({ name, value }) => `${name}=${value}`);
+      cookies.forEach(it => console.log(it));
+      console.log(getTimeDiff(timestamps));
+      timestamps.push(new Date().getTime());
       await page.screenshot({ path: '_puppeteer-extra.png' });
       timestamps.push(new Date().getTime());
       console.log('--- screenshot taken', getTimeDiff(timestamps));
