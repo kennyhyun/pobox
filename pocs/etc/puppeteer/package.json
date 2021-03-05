@@ -4,6 +4,9 @@
   "description": "",
   "main": "chrome-aws-lambda.js",
   "scripts": {
+    "dc": "docker-compose -f docker-compose.xvfb.yml",
+    "start:docker": "yarn dc up puppeteer",
+    "start": "node puppeteer-extra",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

@@ -16,8 +16,8 @@ Puppeteer.launch({
     '--hide-scrollbars',
     '--mute-audio',
     '--window-size=800,600',
-    // '--no-sandbox',
-    // '--disable-setuid-sandbox',
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
     // '--disable-sync',
     // '--ignore-certificate-errors',
     '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
@@ -63,7 +63,7 @@ Puppeteer.launch({
       cookies.forEach(it => console.log(it));
       console.log(getTimeDiff(timestamps));
       timestamps.push(new Date().getTime());
-      await page.screenshot({ path: '_puppeteer-extra.png' });
+      await page.screenshot({ path: 'screenshots/_puppeteer-extra.png' });
       timestamps.push(new Date().getTime());
       console.log('--- screenshot taken', getTimeDiff(timestamps));
       await browser.close();
